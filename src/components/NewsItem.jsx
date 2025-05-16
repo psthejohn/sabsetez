@@ -1,41 +1,27 @@
 // src/components/NewsItem.jsx
 import React from "react";
 
-export default function NewsItem({ article }) {
+export default function NewsItem({ article, compact }) {
   return (
-    <div className="bg-white rounded-2xl shadow-md p-8 mb-8 mx-auto max-w-xl border border-gray-100 flex flex-col items-center min-h-[270px]">
-      {/* Brand/Logo (optional, displays above image/title) */}
-      {article.brandLogo && (
-        <img
-          src={article.brandLogo}
-          alt={article.source || "News"}
-          className="h-10 mb-3"
-        />
-      )}
-      {/* News Image (optional, displays above title) */}
+    <div className={`bg-white rounded-xl shadow p-3 mb-2 ${compact ? 'min-h-[130px]' : 'min-h-[270px]'}`}>
       {article.urlToImage && (
         <img
           src={article.urlToImage}
           alt={article.title}
-          className="w-full h-36 object-cover rounded-lg mb-3 border"
-          onError={e => (e.target.style.display = "none")}
+          className={`w-full ${compact ? 'h-24' : 'h-36'} object-cover rounded mb-2`}
         />
       )}
-      {/* Headline/Title */}
-      <h2 className="text-xl font-bold text-blue-900 text-center mb-2">{article.title}</h2>
-      {/* Description */}
-      <p className="text-gray-700 text-center mb-3">{article.description}</p>
-      {/* CTA Link */}
+      <h2 className="text-lg font-bold text-blue-900 mb-1">{article.title}</h2>
+      {!compact && <p className="text-gray-700 mb-2">{article.description}</p>}
       <a
         href={article.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block mt-1 text-blue-700 hover:underline font-semibold"
+        className="text-blue-700 hover:underline font-semibold text-sm"
       >
         Read more →
       </a>
-      {/* Source & Time */}
-      <div className="text-xs text-gray-400 mt-4 text-center">
+      <div className="text-xs text-gray-400 mt-2">
         {article.source && <>Source: <span className="font-medium">{article.source}</span> | </>}
         {article.publishedAt && new Date(article.publishedAt).toLocaleString()}
       </div>
